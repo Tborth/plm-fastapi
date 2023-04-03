@@ -1,0 +1,89 @@
+
+.left {
+  background: grey;  
+}
+
+
+
+.right {
+  background: black;  
+}
+
+.main-wrapper {
+  height: 100vh;  
+}
+
+.section {
+  height: 100%;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.half {
+  background: #f9f9f9;
+  height: 50%;  
+  width: 100%;
+  margin: 15px 0;
+}
+
+h4 {
+  color: white;  
+}
+
+.dot {
+  height: 18px;
+  width: 18px;
+  background-color: rgb(255, 0, 0);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.one-fine-dot::before {
+  content: "\25cf";
+}
+
+.one-fine-red-dot::before {
+  content: "\25cf";
+  color: rgb(255, 0, 0);
+}
+
+.one-fine-empty-dot::before {
+  content: "\15cb";
+}
+
+.lead .one-fine-dot {
+  font-size: 5.5em;
+}
+
+table {
+  color: white;  
+}
+
+.white-color-text {
+  color: white;  
+}
+
+.active-tab {
+  background-color : rgb(96, 96, 96);
+  color: white;  
+}
+
+.fullCircle {
+  width: 100px;
+  height:100px;
+  bordeR: 1px solid;
+  border-radius: 50%;
+  background-color: #f00;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid;
+  background-color: #ff0000;
+  opacity: 0.3;
+}
+

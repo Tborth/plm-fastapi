@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">System Info</div>
+                    <form action="/provisioned/update/{{ selected_system[0].serialNumber }}/{{ active_id }}" method="post" enctype="multipart/form-data">
+                            <table class="table table-bordered text-white">
+                                <!-- <thead>
+                                <tr>
+                                    <th class="text-white">Firstname</th>
+                                    <th>Lastname</th>
+                                
+                                </tr>
+                                </thead> -->
+<!-- System info -->
+                                <tbody class="my-3 shadow w-100 text-dark">
+                                <tr >
+                                    <td>system ID</td>
+                                    <td>{{system_id}}</td>
+                                
+                                </tr>
+                                <tr >
+                                    <td>comissioned date</td>
+                                    <td>{{today}}</td>
+                                
+                                </tr>
+                                <tr >
+                                    <td>deployed system</td>
+                                    <td><table border="2" bordercolor="white">
+                                        <tbody >
+                                            <td>
+                                            <tr> 
+                                                <td>system_serial_no</td>
+                                                <td>{{selected_system[0].serialNumber }}</td>
+                                            </tr>
+                                            <tr> 
+                                                <td>calib_obj_serial_no</td>
+                                             <td>  <select class="form-select" aria-label="calibration" name="calibration">
+                                                <option selected value="{{ calibObjectSelected }}" >{{ calibObjectSelected }}</option>
+                                                {% for calib in calibration_details%}
+                                                    {%if calib.serialNumber != calibObjectSelected %}
+                                                        <option value="{{calib.serialNumber}}"> {{calib.serialNumber}}</option>
+                                               
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </select>
+
+                                            </td>
+                                              
+                                            </tr>
+                                            
+                                            </td>
+                                        </tbody>
+                                        </table>
+                                    </td>
+                                
+                                </tr>
+                              
+                                <tr  class="my-3  w-100 text-dark">
+                                 <td> configuration</td>
+                                    <td>
+                                        <table border="2" bordercolor="white">
+                                        <tbody >
+                                            <td>
+                                            <tr> 
+                                                <td>camera</td>
+                                                <td>{{selected_system[0].modules|length }}</td>
+                                            </tr>
+                                            <tr> 
+                                                <td>Zone Size</td>
+                                                <td> <input class="form-control" type="text" name="zone" placeholder="zone size"  value="{{ zone}}"></td>
+                                            </tr>
+                                          
+                                            </td>
+                                        </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>imageTag</td>
+                                    <td><input class="form-control" type="text" name="imageTag" placeholder="imageTag" value="{{ commission_data.systemInfo.imageTag }}" ></td>
+                                </tr>
+                                <tr >
+                                    <td>oiml</td>
+                                    <td><input class="form-control" type="text" name="oiml" placeholder="oiml" value="{{ commission_data.systemInfo.oiml }}" ></td>
+                                </tr>
+                                <tr >
+                                    <td>last calibaration date</td>
+                                    <td><input class="form-control" type="text" name="lastcalibartiondate" placeholder="last calibration date" value="{{ commission_data.systemInfo.lastcalibartiondate }}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+<!-- Customer Info  -->
+                            <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">Customer Info</div>
+                            <table class="table table-bordered text-white">
+                                <tbody class="my-3 shadow w-100 text-dark">
+                                    <tr >
+                                        <td>customer name</td>
+                                        <td><input class="form-control" type="text" name="customerName" placeholder="customer name" value="{{ commission_data.customerInfo.name}}"></td>
+                                    </tr>
+                                    <tr >
+                                        <td>country</td>
+                                        <td><input class="form-control" type="text" name="country" placeholder="country" value="{{ commission_data.customerInfo.country}}" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>site</td>
+                                        <td><input class="form-control" type="text" name="site" placeholder="site"  value="{{ commission_data.customerInfo.site}}" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>installation location</td>
+                                        <td><input class="form-control" type="text" name="installationlocation" placeholder="installation location"  value="{{ commission_data.customerInfo.installationlocation }}"></td>
+                                    </tr>
+
+                            </table>
+<!-- Network Info -->
+                            <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">Network Info</div>
+                            <table class="table table-bordered text-white">
+                                <tbody class="my-3 shadow w-100 text-dark">
+                                    <tr >
+                                        <td>Assigned Public IP</td>
+                                        <td><input class="form-control" type="text" name="assignedpublicIP" placeholder="Assigned Public IP"  value="{{ commission_data.networkInfo.addresses[0] }}" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>Subnet Mask</td>
+                                        <td><input class="form-control" type="text" name="subnetmask" placeholder="Subnet Mask" value="{{ commission_data.networkInfo.address }}" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>gateway</td>
+                                        <td><input class="form-control" type="text" name="gateway" placeholder="gateway" value="{{ commission_data.networkInfo.gateway4 }}" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>routes</td>
+                                        <td><input class="form-control" type="text" name="routers" placeholder="routes"  value="{{ commission_data.networkInfo.routes }}"></td>
+                                    </tr>
+
+                            </table>
+<!-- SSH & DB keys -->
+                            <!-- <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">SSH & DB keys</div>
+                            <table  class="table table-bordered text-white">
+                                <tbody class="my-3 shadow w-100 text-dark">
+                                {% for entry in selected_system[0].modules %}    
+                                        <tr >
+                                            <td>{{entry.hostname}}</td>
+                                            <td><input class="form-control" type="text" name="{{ entry.hostname }}user" placeholder="user name" value="{{ entry.credentials.username }}"></td>
+                                            <td><input class="form-control" type="text" name="{{ entry.hostname }}pass" placeholder="password" value="{{ entry.credentials.password }}"  ></td>
+                                        </tr>
+                                    
+                                {% endfor %}
+                                    <tr >
+                                        <td>customerapp_db</td>
+                                        <td><input class="form-control" type="text" name="customerapp_dbuser" placeholder="user name" ></td>
+                                        <td><input class="form-control" type="text" name="customerapp_dbpass" placeholder="password" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>logging_db</td>
+                                        <td><input class="form-control" type="text" name="logging_dbuser" placeholder="user name" ></td>
+                                        <td><input class="form-control" type="text" name="logging_dbpass" placeholder="password" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>minio</td>
+                                        <td><input class="form-control" type="text" name="miniouser" placeholder="user name" ></td>
+                                        <td><input class="form-control" type="text" name="miniopass" placeholder="password" ></td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+                     
+                            
+<!-- Access Info -->
+                            <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">Access Info</div>
+                            <table class="table table-bordered text-white">
+                                <tbody class="my-3 shadow w-100 text-dark">
+                                    <td>UI Access</td>
+                                    <td><table border="2" bordercolor="white">
+                                        <tbody >
+                                            <td>
+                                            <tr> 
+                                                <td>User Name</td>
+                                                <td>admin@cargoeye.com </td>
+                                            </tr>
+                                            <tr> 
+                                                <td>Password</td>
+                                                <td>{{ selected_system[0].credentials.uiKeys[0] }}</td>
+                                            </tr>
+                                            
+                                            </td>
+                                        </tbody>
+                                        </table>
+                                    </td>
+                                    <tr >
+                                        <td>Api Auth Key</td>
+                                        <td><table border="2" bordercolor="white">
+                                            <tbody >
+                                                <td>
+                                                <tr> 
+                                                    <td>API Auth Key</td>
+                                                    <td>{{ selected_system[0].credentials.api.apiAuthKey }} </td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>API AuthKey Decoded</td>
+                                                    <td>{{ selected_system[0].credentials.api.apiAuthKeyDecoded }}</td>
+                                                </tr>
+                                                
+                                                </td>
+                                            </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                       
+                                    </tr>
+
+                            </table>
+                            
+<!-- Remote Access -->
+                            <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">Remote Access</div>
+                            <table class="table table-bordered text-white">
+                                <tbody class="my-3 shadow w-100 text-dark">
+                                {% if  commission_data.remoteAccess.vpn %}
+                                    <tr >
+                                        <td>VPN</td>
+                                        <td><table border="2" bordercolor="white">
+                                            <tbody >
+                                                <td>
+                                                <tr> 
+                                                    <td>login</td>
+                                                    <td><input class="form-control" type="text" name="vpnlogin" placeholder="Password" value=" {{ commission_data.remoteAccess.vpn.login }}" ></td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>password</td>
+                                                    <td><input class="form-control" type="text" name="vpnpassword" placeholder="Password"  value="{{ commission_data.remoteAccess.vpn.password }}" ></td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>OTP method</td>
+                                                    <td><input class="form-control" type="text" name="vpnotpmethod" placeholder="OTP method"  value="{{ commission_data.remoteAccess.vpn.vpnotpmethod }}" ></td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>Any Other Remark</td>
+                                                    <td><input class="form-control" type="text" name="vpnanyotherremark" placeholder="Any Other Remark" value="{{ commission_data.remoteAccess.vpn.remark }}" ></td>
+                                                </tr>
+                                                
+                                                </td>
+                                            </tbody>
+                                            </table>
+                                        </td>
+                                        
+                                    </tr>
+                                {% else %}
+                                    <tr >
+                                        <td>VPN</td>
+                                        <td><table border="2" bordercolor="white">
+                                            <tbody >
+                                                <td>
+                                                <tr> 
+                                                    <td>login</td>
+                                                    <td><input class="form-control" type="text" name="vpnlogin" placeholder="Password" ></td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>password</td>
+                                                    <td><input class="form-control" type="text" name="vpnpassword" placeholder="Password"  ></td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>OTP method</td>
+                                                    <td><input class="form-control" type="text" name="vpnotpmethod" placeholder="OTP method"   ></td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>Any Other Remark</td>
+                                                    <td><input class="form-control" type="text" name="vpnanyotherremark" placeholder="Any Other Remark"  ></td>
+                                                </tr>
+                                                
+                                                </td>
+                                            </tbody>
+                                            </table>
+                                        </td>
+                                        
+                                    </tr> 
+                                {% endif %}
+                                    <tr >
+                                        <td>Zoho</td>
+                                            <td><table border="2" bordercolor="white">
+                                                <tbody >
+                                                    {% if  commission_data.remoteAccess.zoho %}
+                                                        <td>
+                                                        <tr> 
+                                                            <td>Device Name</td>
+                                                            <td><input class="form-control" type="text" name="zohodevicename" placeholder="Device Name" value="{{ commission_data.remoteAccess.zoho.devicename }}" ></td>
+                                                        </tr>
+                                                        <tr> 
+                                                            <td>account</td>
+                                                            <td><input class="form-control" type="text" name="zohoaccount" placeholder="Account" value="{{ commission_data.remoteAccess.zoho.account }}" ></td>
+                                                        </tr>
+                                                        
+                                                        </td>
+                                                    {% else %}
+                                                        <td>
+                                                            <tr> 
+                                                                <td>Device Name</td>
+                                                                <td><input class="form-control" type="text" name="zohodevicename" placeholder="Device Name"  ></td>
+                                                            </tr>
+                                                            <tr> 
+                                                                <td>account</td>
+                                                                <td><input class="form-control" type="text" name="zohoaccount" placeholder="Account"  ></td>
+                                                            </tr>
+                                                            
+                                                        </td>
+                                                    {% endif %}
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                            </table>
+<!-- IOT Info  -->
+                            <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">IoT Info (if applicable)</div>
+                            <table class="table table-bordered text-white">
+                                <tbody class="my-3 shadow w-100 text-dark">
+                                    <tr >
+                                        <td>IoT Hub assigned</td>
+                                        <td><input class="form-control" type="text" name="iothubassigned" placeholder="IoT Hub Assigned" value="{{ commission_data.iotHub.assignedHub }}"  ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>IoT DPS scope id</td>
+                                        <td><input class="form-control" type="text" name="iotdpsscopeid" placeholder="IoT DPS scope Id" value="{{ commission_data.iotHub.scopeID }}" ></td>
+                                    </tr>
+                                    <tr >
+                                        <td>Device Name</td>
+                                        <td>{{system_id}}</td>
+                                    </tr>
+                                    <tr >
+                                        <td>IoT Edge deployment template</td>
+                                        <td><input class="form-control" type="text" name="iotedgedeployment" placeholder="IoT Edge Deployment Template" value="{{ commission_data.iotHub.iotedgedeployment }}" ></td>
+                                    </tr>
+
+                            </table>
+ <!-- Change logs -->
+                    <!-- <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">Change Logs</div>
+                    <table class="table table-bordered text-white">
+                        <tbody class="my-3 shadow w-100 text-dark">
+                            <tr >
+                                <td>Date</td>
+                                <td>{{today}}</td>
+                            </tr>
+                            <tr >
+                                <td>Change Logs</td>
+                                <td><input class="form-control" type="text" name="changelogs" placeholder="Change Logs" ></td>
+                            </tr>
+                           
+
+                    </table> -->
+<!-- remark  -->
+                <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">Remarks or Customization</div>
+                <table class="table table-bordered text-white">
+                    <tbody class="my-3 shadow w-100 text-dark">
+                        <!-- <tr >
+                            <td>Date</td>
+                            <td>{{today}}</td>
+                        </tr> -->
+                        <tr >
+                            <td>Remarks </td>
+                            <td><input class="form-control" type="text" name="remarks" placeholder="remarks" value="{{ commission_data.remarks }}" ></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <div class="text-center font-weight-bold shadow-sm p-3 mb-5 bg-white rounded">Documentation</div>
+                <table class="table table-bordered text-white">
+                    <tbody class="my-3 shadow w-100 text-dark">
+                        <tr >
+                            <td>Solutioning URL</td>
+                            <tr >
+                                {% if commission_data.solutioning_url %}
+                                    <td>URL</td>
+                                   <tr> <td><input class="form-control" type="text" name="urls_documents" placeholder="urls" value="{{ commission_data.solutioning_url }}" ></td></tr>
+                                {% endif %} 
+                                </tr>
+                            <td><input type="file" id="files" name="solutioningfiles" multiple><br><br></td>
+                        </tr>
+                        <!-- <tr >
+                            <td>system comissioning document </td>
+                            <td><input type="file" id="files" name="comissioningfiles" multiple><br><br></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <button class="btn btn-primary" type="submit">
+                               Update
+                            </button>
+
+
+                </form>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+</body>
+</html>
+
+
+

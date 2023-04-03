@@ -1,0 +1,343 @@
+<html>
+  <head>
+   
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+<style>
+ 
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  }
+
+  .button2 {background-color: #008CBA;} /* Blue */
+  .button3 {background-color: #f44336;} /* Red */ 
+  .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
+  .button5 {background-color: #555555;} /* Black */
+
+</style>
+
+</head>
+<div class="main-wrapper ">
+  <div class="section col-xs-1 " style="background: grey;">
+    <div class="w3-sidebar w3-bar-block w3-black w3-xxlarge w3-sidebar"  style="width:70px; ">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
+      <a href="/search/" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
+      </div>
+  </div>
+ 
+
+  <div class="section col-xs-3" style="background: grey;">
+    <h2 class="w3-bar text-center w3-black font-weight-bold ">Registered</h2>
+    <div  style=" width:100%; overflow:auto; height:33.3% ;overflow:auto; ">
+      
+      {% for entry in systems%}
+       {% if entry.state == "registered" %}
+          <a class="{{' col-sm-12 w3-button w3-bar-item active-tab' if entry.id == active_id  else 'col-sm-12 w3-button w3-bar-item '}}" href="/system/{{ entry.id }}" >
+            <div class="col-sm-9 float-start  "> 
+
+              <p class="w3-bar-item w3-button " style="width:100%;"><b>{{ entry.serialNumber}}</b></p>
+          
+          
+          </div>
+        
+          <div class="col-sm-3 float-end">
+            {% if entry.state == "provisioned" %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(238, 255, 0);"></span>
+                </div>
+            {% elif entry.state == "registered" %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(248, 0, 0);"></span>
+                </div>
+
+            {% elif entry.state == "comissioned" %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(0, 246, 57);"></span>
+                </div>
+            {% else %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(0, 0, 0);"></span>
+                </div>
+              
+            {% endif %}
+          
+          </div>
+        </a>
+        </br>
+        
+          
+        {% endif %}
+      {% endfor %}
+      <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 1</a> -->
+      <!-- <span class='bi bi-circle-fill' style='color: red'></span> -->
+      <!-- <h2>One fine heading dot: <span class="glyphicon one-fine-dot" style="color: rgb(255, 0, 0);"></span></h2> -->
+    
+      <br>
+      <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 2</a><br>
+      <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 3</a><br> -->
+      
+  </div>
+    <!-- <div class="half"><h4>Bottom left</h4></div> -->
+
+<!-- second portion  -->
+<h2 class="w3-bar text-center w3-black font-weight-bold">Provisioned</h2>
+<div  style=" width:100%; overflow:auto; height:33.3% ;overflow:auto; ">
+  
+  {% for entry in systems%}
+   {% if entry.state == "provisioned" %}
+      <a class="{{' col-sm-12 w3-button w3-bar-item active-tab' if entry.id == active_id  else 'col-sm-12 w3-button w3-bar-item '}}" href="/system/{{ entry.id }}" >
+        <div class="col-sm-9 float-start  "> 
+
+          <p class="w3-bar-item w3-button " style="width:100%;"><b>{{ entry.serialNumber}}</b></p>
+      
+      
+      </div>
+    
+      <div class="col-sm-3 float-end">
+        {% if entry.state == "provisioned" %}
+            <div  style="  margin-top: 12%">
+              <span class="dot " style=" background-color: rgb(238, 255, 0);"></span>
+            </div>
+        {% elif entry.state == "registered" %}
+            <div  style="  margin-top: 12%">
+              <span class="dot " style=" background-color: rgb(248, 0, 0);"></span>
+            </div>
+
+        {% elif entry.state == "comissioned" %}
+            <div  style="  margin-top: 12%">
+              <span class="dot " style=" background-color: rgb(0, 246, 57);"></span>
+            </div>
+        {% else %}
+            <div  style="  margin-top: 12%">
+              <span class="dot " style=" background-color: rgb(0, 0, 0);"></span>
+            </div>
+          
+        {% endif %}
+      
+      </div>
+    </a>
+    </br>
+    
+      
+    {% endif %}
+  {% endfor %}
+  <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 1</a> -->
+  <!-- <span class='bi bi-circle-fill' style='color: red'></span> -->
+  <!-- <h2>One fine heading dot: <span class="glyphicon one-fine-dot" style="color: rgb(255, 0, 0);"></span></h2> -->
+
+  <br>
+  <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 2</a><br>
+  <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 3</a><br> -->
+  
+  </div>
+
+<!-- portion third -->
+<h2 class="w3-bar text-center w3-black font-weight-bold">Comissioned</h2>
+<div  style=" width:100%; overflow:auto; height:33.3% ;overflow:auto; ">
+   
+  {% for entry in systems%}
+   {% if entry.state == "comissioned" %}
+      <a class="{{' col-sm-12 w3-button w3-bar-item active-tab' if entry.id == active_id  else 'col-sm-12 w3-button w3-bar-item '}}" href="/system/{{ entry.id }}" >
+        <div class="col-sm-9 float-start  "> 
+
+          <p class="w3-bar-item w3-button " style="width:100%;"><b>{{ entry.serialNumber}}</b></p>
+      
+      
+      </div>
+    
+      <div class="col-sm-3 float-end">
+        {% if entry.state == "provisioned" %}
+            <div  style="  margin-top: 12%">
+              <span class="dot " style=" background-color: rgb(238, 255, 0);"></span>
+            </div>
+        {% elif entry.state == "registered" %}
+            <div  style="  margin-top: 12%">
+              <span class="dot " style=" background-color: rgb(248, 0, 0);"></span>
+            </div>
+
+        {% elif entry.state == "comissioned" %}
+            <div  style="  margin-top: 12%">
+              <span class="dot " style=" background-color: rgb(0, 246, 57);"></span>
+            </div>
+        {% else %}
+            <div  style="  margin-top:12%">
+              <span class="dot " style=" background-color: rgb(0, 0, 0);"></span>
+            </div>
+          
+        {% endif %}
+      
+      </div>
+    </a>
+    </br>
+    
+      
+    {% endif %}
+  {% endfor %}
+  <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 1</a> -->
+  <!-- <span class='bi bi-circle-fill' style='color: red'></span> -->
+  <!-- <h2>One fine heading dot: <span class="glyphicon one-fine-dot" style="color: rgb(255, 0, 0);"></span></h2> -->
+
+  <br>
+  <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 2</a><br>
+  <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 3</a><br> -->
+  
+  </div>
+    <!-- <div class="half"><h4>Bottom left</h4></div> -->
+</div>
+  <div class="section right col-xs-8">
+
+      <div style="overflow:auto; height:100% ;width: 100% " >
+       <div class="w3-container w3-teal box" style="height: 10%;"> 
+          
+                <div class="row mt-5" >
+                    <div class="col-md-6 text-left">
+                      <h1 >Systems</h1>
+                  </div>
+                    <div class="col-md-6 text-right ">
+                        <button  class="button ">advanced​</button>
+                        {% if selected_system[0].state == "registered" %}
+                          <a href="/provision/{{ active_id }}"> <button class="button ">provision system​</button></a>
+                    
+                        {% endif %}
+                    </div>
+                </div>
+            
+      </div>
+     
+      <!-- Info System of the table-->
+        <div class="container">
+          <h2 class="white-color-text ">System Info</h2>
+          <!-- <p>The .table-bordered class adds borders to a table:</p>             -->
+          <table class="table table-bordered text-white">
+            <!-- <thead>
+              <tr>
+                <th class="text-white">Firstname</th>
+                <th>Lastname</th>
+              
+              </tr>
+            </thead> -->
+            <tbody>
+              <tr>
+                <td>serial number</td>
+                <td>{{selected_system[0].serialNumber}}</td>
+              
+              </tr>
+              <tr>
+                <td>create date time</td>
+                <td>{{selected_system[0].createDateTime }}</td>
+              
+              </tr>
+              <tr>
+                <td>state</td>
+                <td>{{selected_system[0].state }}</td>
+              
+              </tr>
+              <tr>
+                <td> credentials</td>
+                <td>
+                    <table border="2" bordercolor="white">
+                    <tbody >
+                        <td>
+                          <tr> 
+                            <td>API</td>
+                            <td>{{selected_system[0].credentials.api }}</td>
+                          </tr>
+                          <tr> 
+                            <td>Database</td>
+                            <td>{{selected_system[0].credentials.database }}</td>
+                          </tr>
+                          <tr> 
+                            <td>uiKeys</td>
+                            <td>{{selected_system[0].credentials.uiKeys }}</td>
+                          </tr>
+                        </td>
+                    </tbody>
+                    </table>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+
+          
+        </div>
+
+            <!-- Info System of the table-->
+          <div class="container">
+            <h2 class="white-color-text ">Modules</h2>
+            {% for entry in selected_system[0].modules %}
+                  <table class="table table-bordered text-white">
+            
+                        <tbody>
+                          <tr>
+                            <td>host name </td>
+                            <td>{{entry.hostname }}</td>
+                          </tr>
+                          <tr>
+                            <td> serial number </td>
+                            <td>{{entry.serialNumber }}</td>
+                          
+                          </tr>
+                          <tr>
+                            <td> ssh </td>
+                            <td>{{entry.credentials }}</td>
+                          
+                          </tr>
+                          <tr>
+                            <td>state </td>
+                            <td>{{entry.state }}</td>
+                          
+                          </tr>
+                          <tr>
+                           
+                            {% if entry.network.customerNic %}
+                            <td>mac address</td>
+                              <td>{{entry.network.customerNic.mac }}</td>
+                            {% endif %}
+                          </tr>
+                          
+                        </tbody>
+                    </table>
+             
+              {% endfor %}
+          </div>
+      
+
+                    <!-- Info System of the table-->
+          <div class="container">
+            <!-- <h2 class="white-color-text ">Network Info</h2> -->
+            <!-- <p>The .table-bordered class adds borders to a table:</p>             -->
+            <table class="table table-bordered text-white">
+              <!-- <thead>
+                <tr>
+                  <th class="text-white">Firstname</th>
+                  <th>Lastname</th>
+                
+                </tr>
+              </thead> -->
+             
+            </table>
+          </div>
+      </div>
+
+      <div class="w3-container">
+      <p>speedcargo</p>
+      </div>
+      
+    
+  </div>
+</div>
+</html>

@@ -1,0 +1,145 @@
+<html>
+  <head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/static/css/style.css">
+
+
+</head>
+<div class="main-wrapper">
+  <div class="section  col-xs-1 "  style="background: grey;">
+    <div class="w3-sidebar w3-bar-block w3-black w3-xxlarge" style="width:70px">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
+      <a href="/search/" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
+      </div>
+  </div>
+  <div class="section col-xs-3" style="background: grey;">
+    <!-- Part one data  -->
+    <h2 class="w3-bar text-center w3-black font-weight-bold">Provisioned</h2>
+    <div  style=" width:100%; overflow:auto; height:50% ;overflow:auto; ">
+     
+      {% for entry in comission%}
+     
+        {% if entry.state == "provisioned" %}
+            <a class="{{'col-sm-12 w3-button w3-bar-item active-tab' if entry.id == active_id  else 'col-sm-12 w3-button w3-bar-item '}}" href="/commision/{{ entry.id }}" >
+       
+          <div class="col-sm-9 float-start"> 
+             <p class="w3-bar-item w3-button" style="width:100%; font-size: 120%; "><b>{{ entry.systemID}}</b></p>
+         </div>
+          <div class="col-sm-3 float-end">
+            {% if entry.state == "provisioned" %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(238, 255, 0);"></span>
+                </div>
+            {% elif entry.state == "registered" %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(248, 0, 0);"></span>
+                </div>
+
+            {% elif entry.state == "commissioned" %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(0, 246, 57);"></span>
+                </div>
+            {% else %}
+                <div  style="  margin-top: 12%">
+                  <span class="dot " style=" background-color: rgb(0, 0, 0);"></span>
+                </div>
+              
+            {% endif %}
+          
+           </div>
+        {% endif %}
+           
+      </a>
+      </br>
+      
+        
+
+    {% endfor %}
+      <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 1</a> -->
+      <!-- <span class='bi bi-circle-fill' style='color: red'></span> -->
+      <!-- <h2>One fine heading dot: <span class="glyphicon one-fine-dot" style="color: rgb(255, 0, 0);"></span></h2> -->
+    
+      <br>
+      <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 2</a><br>
+      <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 3</a><br> -->
+    
+    </div>
+
+
+<!--   Part of commission  -->
+    <h2 class="w3-bar text-center w3-black font-weight-bold">Commissioned</h2>
+    <div  style=" width:100%; overflow:auto; height:50% ;overflow:auto; ">
+    
+        {% for entry in comission%}
+           {% if entry.state == "commissioned" %}
+               <a class="{{'col-sm-12 w3-button w3-bar-item active-tab' if entry.id == active_id  else 'col-sm-12 w3-button w3-bar-item '}}" href="/commision/{{ entry.id }}" >
+              <div class="col-sm-9 float-start"> 
+
+                  <p class="w3-bar-item w3-button" style="width:100%;  font-size: 120%;"><b>{{ entry.systemID}}</b></p>
+              
+              
+              </div>
+        
+            <div class="col-sm-3 float-end">
+              {% if entry.state == "provisioned" %}
+                  <div  style="  margin-top: 12%">
+                    <span class="dot " style=" background-color: rgb(238, 255, 0);"></span>
+                  </div>
+              {% elif entry.state == "registered" %}
+                  <div  style="  margin-top: 12%">
+                    <span class="dot " style=" background-color: rgb(248, 0, 0);"></span>
+                  </div>
+
+              {% elif entry.state == "commissioned" %}
+                  <div  style="  margin-top: 12%">
+                    <span class="dot " style=" background-color: rgb(0, 246, 57);"></span>
+                  </div>
+              {% else %}
+                  <div  style="  margin-top: 12%">
+                    <span class="dot " style=" background-color: rgb(0, 0, 0);"></span>
+                  </div>
+                
+              {% endif %}
+            
+            </div>
+          </a>
+          </br>
+          
+        
+          {% endif %}
+        {% endfor %}
+          <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 1</a> -->
+          <!-- <span class='bi bi-circle-fill' style='color: red'></span> -->
+          <!-- <h2>One fine heading dot: <span class="glyphicon one-fine-dot" style="color: rgb(255, 0, 0);"></span></h2> -->
+
+          <br>
+          <!-- <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 2</a><br>
+          <a href="#" class="w3-bar-item w3-button" style="width:100%; ">Link 3</a><br> -->
+
+      </div>
+
+
+
+
+
+    <!-- <div class="half"><h4>Bottom left</h4></div> -->
+  </div>
+  <div class="section right col-xs-8">
+
+      <div style="width:100%; height: 100%;">
+       <div class="w3-container w3-teal " style="height: 10%;"> <h1 >Deployed Systems</h1></div>
+     
+      <!-- Container of the table-->
+      
+      </div>
+
+      <div class="w3-container">
+        <p>speedcargo</p>
+        </div>
+    
+  </div>
+</div>
+</html>
